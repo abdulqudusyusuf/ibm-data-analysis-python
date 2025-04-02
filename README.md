@@ -3,8 +3,8 @@
 
 ## Table of Content
 - [Project Overview](#project-overview)
-- [The Dataset](#the-dataset)mporting Data
-- [Importing Data](#importing-data) Data Wrangling
+- [The Dataset](#the-dataset)
+- [Importing Data](#importing-data) 
   - [Question 1](#question-1)
 - [Data Wrangling](#data-wrangling)
   - [Question 2](#question-2)
