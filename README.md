@@ -194,14 +194,15 @@ lm.score(x,y)
 Fit a linear regression model to predict the `'price'` using the feature `'sqft_living'` then calculate the R^2. Take a screenshot of your code and the value of the R^2.
 
 ```python
-X1 = df[['sqft_living']]
-Y1 = df['price']
+X = df[['sqft_living']]
+Y = df['price']
 lm = LinearRegression()
 lm
-lm.fit(X1,Y1)
-lm.score(X1, Y1)
+lm.fit(X,Y)
+lm.score(X, Y)
+
 ```
-0.4928532179037931
+0.49285321790379316
 
 ### Question 7
 Fit a linear regression model to predict the `'price'` using the list of features:
@@ -211,12 +212,14 @@ features =["floors", "waterfront","lat" ,"bedrooms" ,"sqft_basement" ,"view" ,"b
 ```
 
 ```python
-X2=df[features]
-Y2=df['price']
-lm.fit(X2,Y2)
-lm.score(X2,Y2)
+# Then calculate the R^2
+X = df[features]
+Y = df['price']
+lm = LinearRegression()
+lm.fit(X, Y)
+lm.score(X, Y)
 ```
-0.6576885711683069
+0.6576788153088797
 
 Create a list of tuples, the first element in the tuple contains the name of the estimator:
 
@@ -251,7 +254,7 @@ pipe.fit(X,Y)
 pipe.score(X,Y)
 
 ```
-0.7513387707402615
+0.7513413380708591
 
 #### Model Evaluation and Refinement
 
@@ -295,8 +298,7 @@ RidgeModel=Ridge(alpha=0.1)
 RidgeModel.fit(x_train,y_train)
 RidgeModel.score(x_train,y_train)
 ```
-0.6594378534950245
-
+0.6478759163939111
 
 ### Question 10
 Perform a second order polynomial transform on both the training data and testing data. Create and fit a Ridge regression object using the training data, set the regularisation parameter to 0.1, and calculate the R² utilising the test data provided. Take a screenshot of your code and the R².
@@ -311,16 +313,16 @@ RidgeModel1.fit(x_train_pr, y_train)
 RidgeModel1.score(x_test_pr, y_test)
 
 ```
+0.7002744271145418
 
-0.7002744279539594
+
+This project is *originally based on the* **IBM Data Analysis with Python** *course on Coursera.* *And the dataset was sourced from:*  
+[*House Sales in King County, USA*](https://www.kaggle.com/datasets/harlfoxem/housesalesprediction)  
+
 
 I hope these insights have provided valuable information.
 
 Thank you
-
-
-
-
 
 
 
