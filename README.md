@@ -3,17 +3,22 @@
 
 ## Table of Content
 - [Project Overview](#project-overview)
-- [The Dataset](#the-dataset)
-- [Question 1](#question-1)
-- [Question 2](#question-2)
-- [Question 3](#question-3)
-- [Question 4](#question-4)
-- [Question 5](#question-5)
-- [Question 6](#question-6)
-- [Question 7](#question-7)
-- [Question 8](#question-8)
-- [Question 9](#question-9)
-- [Question 10](#question-10) 
+- [The Dataset](#the-dataset)mporting Data
+- [Importing Data](#importing-data) Data Wrangling
+  - [Question 1](#question-1)
+- [Data Wrangling](#data-wrangling)
+  - [Question 2](#question-2)
+- [Exploratory Data Analysis](#exploratory-data-analysis)    
+  - [Question 3](#question-3)
+  - [Question 4](#question-4)
+  - [Question 5](#question-5) 
+- [Model Development](#model-development)  
+  - [Question 6](#question-6)
+  - [Question 7](#question-7)
+  - [Question 8](#question-8)
+- [Model Evaluation and Refinement](#model-evaluation-and-refinement)
+  - [Question 9](#question-9)
+  - [Question 10](#question-10) 
 
 ### Project Overview
 As a Data Analyst for a Real Estate Investment Trust (REIT) that aims to invest in residential real estate. The primary task is to determine the market price of houses based on a set of features. By analyzing and predicting housing prices, I will assist the REIT in making informed investment decisions. The project revolves around a dataset that contains house sale prices for King County, which includes Seattle. The dataset covers the period between May 2014 and May 2015. The original dataset was obtained from a reliable source and has been slightly modified for the purposes of this project.
@@ -42,7 +47,7 @@ from sklearn.linear_model import LinearRegression
 %matplotlib inline
 
 ```
-#### Importing Data Sets
+### Importing Data 
 Load the csv:
 
 ```python
@@ -56,7 +61,7 @@ df.head()
 ```
 ![house2](https://github.com/user-attachments/assets/7e759596-1531-408c-b6a7-e0aafea0c35d)
 
-### Question 1: 
+#### Question 1: 
 Display the data types of each column using the function dtypes
 
 ```python
@@ -99,8 +104,8 @@ df.describe()
 ```
 ![house3](https://github.com/user-attachments/assets/00430e6b-1802-4200-bd41-d60eeaa68e90)
 
-#### Data Wrangling
-### Question 2:
+### Data Wrangling
+#### Question 2:
 Drop the columns "id" and "Unnamed: 0" from axis 1 using the method drop(), then use the method describe() to obtain a statistical summary of the data. Take a screenshot and submit it, make sure the inplace parameter is set to True
 
 ```python
@@ -150,8 +155,8 @@ print("number of NaN values for the column bathrooms :", df['bathrooms'].isnull(
 number of NaN values for the column bedrooms : 0
 number of NaN values for the column bathrooms : 0
 
-#### Exploratory Data Analysis
-### Question 3:
+### Exploratory Data Analysis
+#### Question 3:
 
 Use the method `value_counts` to count the number of houses with unique floor values, use the method `.to_frame()` to convert it to a dataframe.
 
@@ -161,7 +166,7 @@ df['floors'].value_counts().to_frame()
 ```
 ![house5](https://github.com/user-attachments/assets/8bb886e5-9510-446f-bba4-8676cbdadb50)
 
-### Question 4
+#### Question 4
 Use the function `boxplot` in the seaborn library to determine whether houses with a waterfront view or without a waterfront view have more price outliers.
 ```python
 sns.boxplot(x="waterfront",y="price",data=df)
@@ -171,7 +176,7 @@ sns.boxplot(x="waterfront",y="price",data=df)
 
 ![house6](https://github.com/user-attachments/assets/0371d51a-2021-48f6-8194-674e09848d29)
 
-### Question 5
+#### Question 5
 Use the function `regplot` in the seaborn library to determine if the feature `sqft_above` is negatively or positively correlated with price.
 ```python
 sns.regplot(x="sqft_above",y="price",data=df,color='green',ci=None)
@@ -186,7 +191,7 @@ df.corr()['price'].sort_values()
 ![house8](https://github.com/user-attachments/assets/89a4603c-6d57-410c-90b1-906bbcbe2f5f)
 
 
-#### Model Development
+### Model Development
 We can Fit a linear regression model using the longitude feature 'long' and caculate the R^2.
 
 ```python
@@ -198,7 +203,7 @@ lm.score(x,y)
 ```
 0.00046769430149007363
 
-### Question 6
+#### Question 6
 Fit a linear regression model to predict the `'price'` using the feature `'sqft_living'` then calculate the R^2. Take a screenshot of your code and the value of the R^2.
 
 ```python
@@ -212,7 +217,7 @@ lm.score(X, Y)
 ```
 0.49285321790379316
 
-### Question 7
+#### Question 7
 Fit a linear regression model to predict the `'price'` using the list of features:
 
 ```python
@@ -250,7 +255,7 @@ Input=[('scale',StandardScaler()),('polynomial', PolynomialFeatures(include_bias
 
 ```
 
-### Question 8
+#### Question 8
 Use the list to create a pipeline object to predict the `‘price’`, fit the object using the features in the list features, and calculate the R^2.
 
 ```python
@@ -264,7 +269,7 @@ pipe.score(X,Y)
 ```
 0.7513413380708591
 
-#### Model Evaluation and Refinement
+### Model Evaluation and Refinement
 
 ```python
 from sklearn.model_selection import cross_val_score
@@ -293,7 +298,7 @@ print("number of training samples:",x_train.shape[0])
 number of test samples: 3242
 number of training samples: 18371
 
-### Question 9
+#### Question 9
 Create and fit a Ridge regression object using the training data, set the regularization parameter to 0.1, and calculate the R² using the test data.
 
 ```python
@@ -308,7 +313,7 @@ RidgeModel.score(x_train,y_train)
 ```
 0.6478759163939111
 
-### Question 10
+#### Question 10
 Perform a second order polynomial transform on both the training data and testing data. Create and fit a Ridge regression object using the training data, set the regularisation parameter to 0.1, and calculate the R² utilising the test data provided. Take a screenshot of your code and the R².
 
 ```python
@@ -330,17 +335,4 @@ This project is *originally based on the* **IBM Data Analysis with Python** *cou
 
 I hope these insights have provided valuable information.
 
-Thank you
-
-
-
-
-
-
-
-
-
-
-
-
-
+Thank you!
