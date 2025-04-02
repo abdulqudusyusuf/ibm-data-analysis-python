@@ -102,3 +102,235 @@ df.drop("Unnamed: 0", axis = 1, inplace = True)
 df.describe()
 
 ```
+
+![house4](https://github.com/user-attachments/assets/1b53e49e-5255-47f5-8d5a-313cb1201280)
+
+We can see we have missing values for the columns   `bedrooms` and `bathrooms`
+
+```python
+print("number of NaN values for the column bedrooms :", df['bedrooms'].isnull().sum())
+print("number of NaN values for the column bathrooms :", df['bathrooms'].isnull().sunumber of NaN values for the column bedrooms : 13
+number of NaN values for the column bathrooms : 10
+
+```
+
+number of NaN values for the column bedrooms : 13
+number of NaN values for the column bathrooms : 10
+
+We can replace the missing values of the column 'bedrooms' with the mean of the column 'bedrooms' using the method replace(). Don't forget to set the inplace parameter to True
+
+
+```python
+mean=df['bedrooms'].mean()
+df['bedrooms'].replace(np.nan,mean,inplace= True)
+
+```
+We also replace the missing values of the column 'bathrooms' with the mean of the column 'bathrooms' using the method replace(). Don't forget to set the inplace parameter top True
+
+```python
+mean=df['bathrooms'].mean()
+df['bathrooms'].replace(np.nan,mean, inplace=True)
+
+```
+
+```python
+print("number of NaN values for the column bedrooms :", df['bedrooms'].isnull().sum())
+print("number of NaN values for the column bathrooms :", df['bathrooms'].isnull().sum())
+
+```
+
+number of NaN values for the column bedrooms : 0
+number of NaN values for the column bathrooms : 0
+
+#### Exploratory Data Analysis
+### Question 3:
+
+Use the method `value_counts` to count the number of houses with unique floor values, use the method `.to_frame()` to convert it to a dataframe.
+
+```python
+df['floors'].value_counts().to_frame()
+
+```
+![house5](https://github.com/user-attachments/assets/8bb886e5-9510-446f-bba4-8676cbdadb50)
+
+### Question 4
+Use the function `boxplot` in the seaborn library to determine whether houses with a waterfront view or without a waterfront view have more price outliers.
+```python
+sns.boxplot(x="waterfront",y="price",data=df)
+
+```
+<AxesSubplot:xlabel=’waterfront’, ylabel=’price’>
+
+![house6](https://github.com/user-attachments/assets/0371d51a-2021-48f6-8194-674e09848d29)
+
+### Question 5
+Use the function `regplot` in the seaborn library to determine if the feature `sqft_above` is negatively or positively correlated with price.
+```python
+sns.regplot(x="sqft_above",y="price",data=df,color='green',ci=None)
+sns.regplot
+
+```
+![house7](https://github.com/user-attachments/assets/343dad47-c94e-48b9-a182-e69c6a66b121)
+
+```python
+df.corr()['price'].sort_values()
+```
+![house8](https://github.com/user-attachments/assets/89a4603c-6d57-410c-90b1-906bbcbe2f5f)
+
+
+#### Model Development
+We can Fit a linear regression model using the longitude feature 'long' and caculate the R^2.
+
+```python
+X = df[['long']]
+Y = df['price']
+lm = LinearRegression()
+lm.fit(X,Y)
+lm.score(x,y)
+```
+0.00046769430149007363
+
+### Question 6
+Fit a linear regression model to predict the `'price'` using the feature `'sqft_living'` then calculate the R^2. Take a screenshot of your code and the value of the R^2.
+
+```python
+X1 = df[['sqft_living']]
+Y1 = df['price']
+lm = LinearRegression()
+lm
+lm.fit(X1,Y1)
+lm.score(X1, Y1)
+```
+0.4928532179037931
+
+### Question 7
+Fit a linear regression model to predict the `'price'` using the list of features:
+
+```python
+features =["floors", "waterfront","lat" ,"bedrooms" ,"sqft_basement" ,"view" ,"bathrooms","sqft_living15","sqft_above","grade","sqft_living"]  
+```
+
+```python
+X2=df[features]
+Y2=df['price']
+lm.fit(X2,Y2)
+lm.score(X2,Y2)
+```
+0.6576885711683069
+
+Create a list of tuples, the first element in the tuple contains the name of the estimator:
+
+`'scale'`
+
+`'polynomial'`
+
+`'model'`
+
+The second element in the tuple contains the model constructor
+
+`StandardScaler()`
+
+`PolynomialFeatures(include_bias=False)`
+
+`LinearRegression()`
+
+```python
+Input=[('scale',StandardScaler()),('polynomial', PolynomialFeatures(include_bias=False)),('model',LinearRegression())]
+
+```
+
+### Question 8
+Use the list to create a pipeline object to predict the `‘price’`, fit the object using the features in the list features, and calculate the R^2.
+
+```python
+pipe=Pipeline(Input)
+pipe
+X = df[features]
+Y = df['price']
+pipe.fit(X,Y)
+pipe.score(X,Y)
+
+```
+0.7513387707402615
+
+#### Model Evaluation and Refinement
+
+```python
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import train_test_split
+print("done")
+
+```
+
+done
+
+We will split the data into training and testing sets:
+
+```python
+features =["floors", "waterfront","lat" ,"bedrooms" ,"sqft_basement" ,"view" ,"bathrooms","sqft_living15","sqft_above","grade","sqft_living"]    
+X = df[features]
+Y = df['price']
+
+x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.15, random_state=1)
+
+
+print("number of test samples:", x_test.shape[0])
+print("number of training samples:",x_train.shape[0])
+
+```
+
+number of test samples: 3242
+number of training samples: 18371
+
+### Question 9
+Create and fit a Ridge regression object using the training data, set the regularization parameter to 0.1, and calculate the R² using the test data.
+
+```python
+from sklearn.linear_model import Ridge
+
+```
+
+```python
+RidgeModel=Ridge(alpha=0.1)
+RidgeModel.fit(x_train,y_train)
+RidgeModel.score(x_train,y_train)
+```
+0.6594378534950245
+
+
+### Question 10
+Perform a second order polynomial transform on both the training data and testing data. Create and fit a Ridge regression object using the training data, set the regularisation parameter to 0.1, and calculate the R² utilising the test data provided. Take a screenshot of your code and the R².
+
+```python
+pr = PolynomialFeatures(degree = 2)
+x_train_pr = pr.fit_transform(x_train[features])
+x_test_pr = pr.fit_transform(x_test[features])
+
+RidgeModel1 = Ridge(alpha = 0.1) 
+RidgeModel1.fit(x_train_pr, y_train)
+RidgeModel1.score(x_test_pr, y_test)
+
+```
+
+0.7002744279539594
+
+I hope these insights have provided valuable information.
+
+Thank you
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
