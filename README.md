@@ -1,12 +1,19 @@
 # House Sales in King County, USA
-##### Predict house price using regression
+#### Predict house price using regression
 
 ## Table of Content
 - [Project Overview](#project-overview)
-- [The Dataset](#prerequisites)
-- [Step 1](#step-1)
-- [Step 2](#step-2)
-- [Step 3](#step-3)
+- [The Dataset](#the-dataset)
+- [Question 1](#question-1)
+- [Question 2](#question-2)
+- [Question 3](#question-3)
+- [Question 4](#question-4)
+- [Question 5](#question-5)
+- [Question 6](#question-6)
+- [Question 7](#question-7)
+- [Question 8](#question-8)
+- [Question 9](#question-9)
+- [Question 10](#question-10) 
 
 ### Project Overview
 As a Data Analyst for a Real Estate Investment Trust (REIT) that aims to invest in residential real estate. The primary task is to determine the market price of houses based on a set of features. By analyzing and predicting housing prices, I will assist the REIT in making informed investment decisions. The project revolves around a dataset that contains house sale prices for King County, which includes Seattle. The dataset covers the period between May 2014 and May 2015. The original dataset was obtained from a reliable source and has been slightly modified for the purposes of this project.
